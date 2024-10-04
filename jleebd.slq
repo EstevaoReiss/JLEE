@@ -1,0 +1,186 @@
+-- --------------------------------------------------------
+-- Servidor:                     127.0.0.1
+-- Versão do servidor:           8.0.30 - MySQL Community Server - GPL
+-- OS do Servidor:               Win64
+-- HeidiSQL Versão:              12.1.0.6537
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+-- Copiando estrutura do banco de dados para jlee
+CREATE DATABASE IF NOT EXISTS `jlee` /*!40100 DEFAULT CHARACTER SET latin1 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `jlee`;
+
+-- Copiando estrutura para tabela jlee.avaliacao
+CREATE TABLE IF NOT EXISTS `avaliacao` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_cliente` int DEFAULT NULL,
+  `avaliacao` varchar(50) DEFAULT NULL,
+  `comentario` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_cliente` (`id_cliente`),
+  CONSTRAINT `avaliacao_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela jlee.avaliacao: ~0 rows (aproximadamente)
+
+-- Copiando estrutura para tabela jlee.carrinho
+CREATE TABLE IF NOT EXISTS `carrinho` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_cliente` int DEFAULT NULL,
+  `hora_compra` time DEFAULT NULL,
+  `data_compra` date DEFAULT NULL,
+  `tipo_pgto` varchar(50) DEFAULT NULL,
+  `total_carrinho` decimal(10,2) DEFAULT NULL,
+  `status_cart` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_cliente` (`id_cliente`),
+  CONSTRAINT `carrinho_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela jlee.carrinho: ~0 rows (aproximadamente)
+
+-- Copiando estrutura para tabela jlee.cliente
+CREATE TABLE IF NOT EXISTS `cliente` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) DEFAULT NULL,
+  `sobrenome` varchar(50) DEFAULT NULL,
+  `email` varchar(60) DEFAULT NULL,
+  `senha` varchar(256) DEFAULT NULL,
+  `cpf` varchar(11) DEFAULT NULL,
+  `data_nascimento` date DEFAULT NULL,
+  `telefone` varchar(13) DEFAULT NULL,
+  `endereco` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela jlee.cliente: ~12 rows (aproximadamente)
+INSERT INTO `cliente` (`id`, `nome`, `sobrenome`, `email`, `senha`, `cpf`, `data_nascimento`, `telefone`, `endereco`) VALUES
+	(1, 'Admin', 'Admin', 'adminadmin@gmail.com', '12345678', '12345678901', '2000-01-01', '1234567890', 'Endereço de exemplo'),
+	(2, 'Renan', 'Silva', 'renanzin_delas69@gmail.com', '$2y$10$AR7gcm/kiiB/9ccODhw/X.9pPanLRqnOYFC/7boTkEMOZHTOjv1Wy', '55448048854', '2007-02-18', '11944771432', 'Rua Safari'),
+	(3, 'ESTEVÃO', 'CASTRO DOS REIS', 'layslaguedes02@gmail.com', '$2y$10$mBc4djM7SOGR3a9R/F83feGIdN6rdQ1DcI/Wz1AXqCz7pe1jZ126G', '51113360879', '2023-12-09', '11971679641', 'Rua Takaharu Urano'),
+	(4, 'sophia', 'ferreira', 'layslaguedes02@gmail.com', '$2y$10$EO8yRAdlnypI8YLfZ.YZRuiucR3CdFJWMPhqx8AO0SR.7WjIFknXG', '51113360879', '2023-11-07', '11971679641', 'Rua Takaharu Urano'),
+	(5, 'luiza', 'anjos', 'layslaguedes02@gmail.com', '$2y$10$ZX9DsBJcruBzhOVVSJNRHutdsQ9ivAAY7cfoJNLkx.9Ma/AO0pfl.', '51113360879', '2009-07-25', '11971679641', 'Rua Takaharu Urano'),
+	(6, 'Carla', 'Cristina', 'carla04@gmail.com', '$2y$10$/86GnMHzLYaZIjZRFusN6eGxK0DtBG84xWx/0jVs55mXSkOjc02eK', '11111111111', '1972-10-19', '1180020822', 'Rua Paiva'),
+	(7, 'fernanda', 'sales', 'carla04@gmail.com', '$2y$10$t/M.5lklUmgBkWwUERjRpOqs/dwqbNyCD5bMygMfUimNXJO9FpABq', '1111111111', '2007-07-12', '980601503', 'Rua Paiva'),
+	(8, 'Julia', 'Carla', 'carla04@gmail.com', '$2y$10$z2DWMVR2sJ6tiV3v1TKxIOL9M9fXx3iERFNUN6XAOf5LAGnejOxY6', '11111111111', '2006-03-20', '1140028922', 'Rua Paiva'),
+	(9, 'FDS', 'FDS', 'FFS@FDS.COM', '$2y$10$bsUHR9Y/K/224smnIfCYEe1rA3Izju5Q5ylQdryXH4nXR0rFQSFoa', '11', '2005-09-09', '1111', '1111'),
+	(10, 'Julia', 'Domingues', 'julia@gmail.com', '$2y$10$UMbIcOjGvGM0TBXQZxFv6OJDGZr9NK6mSbdLhhdyrrj.4k5fGNih6', '5657643897', '2007-01-21', '1115454546', 'rua rosa'),
+	(11, 'victor ', 'carvalho', 'vinte04@gmail.com', '$2y$10$SwxUHbR4SKIA3w1n0HvqKe9OQEtMbPr4lDyMlZyhZ45vPeLFdrZge', '60000000000', '2007-11-11', '999999999', 'Rua Paiva'),
+	(12, 'leila', 'cabrita', 'marquitovem@gmail.com', '$2y$10$Nfc35lEjBCFgcC.9OSI9PuiTidh3A8u9XOYOSYHGY481XUWvpSny.', '54882204886', '2007-02-10', '11973622703', 'avenida das avencas'),
+	(13, 'júlia ', 'Lopes', 'carla04@gmail.com', '$2y$10$dX6avuC5VRgSkTmI7Cy25eFYKiLSwwKmF5LIeCUszXAM2.eTJPdh2', '54779752884', '2008-08-03', '11964800393', 'Rua Paiva'),
+	(14, 'rhay', 'silva', 'carla04@gmail.com', '$2y$10$qYaNC8Lm9hDcg6bLjMcL6ODZxlRKnBsaJBP2OgtoURlq4plnidWO.', '47655594830', '2005-08-01', '1140028922', 'Rua Paiva');
+
+-- Copiando estrutura para tabela jlee.compras
+CREATE TABLE IF NOT EXISTS `compras` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `valor` decimal(10,2) DEFAULT NULL,
+  `id_desconto` int DEFAULT NULL,
+  `total` decimal(10,2) DEFAULT NULL,
+  `id_produto` int DEFAULT NULL,
+  `quantidade` int DEFAULT NULL,
+  `id_carrinho` int DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_desconto` (`id_desconto`),
+  KEY `id_produto` (`id_produto`),
+  KEY `id_carrinho` (`id_carrinho`),
+  CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_desconto`) REFERENCES `desconto` (`id`),
+  CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_produto`) REFERENCES `produtos` (`id`),
+  CONSTRAINT `compras_ibfk_3` FOREIGN KEY (`id_carrinho`) REFERENCES `carrinho` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela jlee.compras: ~0 rows (aproximadamente)
+
+-- Copiando estrutura para tabela jlee.desconto
+CREATE TABLE IF NOT EXISTS `desconto` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `valor_desconto` decimal(10,2) DEFAULT NULL,
+  `data_inicio` date DEFAULT NULL,
+  `data_fim` date DEFAULT NULL,
+  `codigo` varchar(11) DEFAULT NULL,
+  `status` varchar(13) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela jlee.desconto: ~0 rows (aproximadamente)
+
+-- Copiando estrutura para tabela jlee.empresa
+CREATE TABLE IF NOT EXISTS `empresa` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `senha` varchar(256) DEFAULT NULL,
+  `cnpj` varchar(14) DEFAULT NULL,
+  `telefone` varchar(13) DEFAULT NULL,
+  `endereco` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela jlee.empresa: ~0 rows (aproximadamente)
+
+-- Copiando estrutura para tabela jlee.produtos
+CREATE TABLE IF NOT EXISTS `produtos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `valor` decimal(10,2) DEFAULT NULL,
+  `produto` varchar(50) DEFAULT NULL,
+  `estoque` int DEFAULT NULL,
+  `descricao` varchar(200) DEFAULT NULL,
+  `id_desconto` int DEFAULT NULL,
+  `id_avaliacao` int DEFAULT NULL,
+  `categoria` varchar(15) DEFAULT NULL,
+  `quantidade` varchar(10) DEFAULT NULL,
+  `imagem` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_avaliacao` (`id_avaliacao`),
+  KEY `id_desconto` (`id_desconto`),
+  CONSTRAINT `produtos_ibfk_1` FOREIGN KEY (`id_avaliacao`) REFERENCES `avaliacao` (`id`),
+  CONSTRAINT `produtos_ibfk_2` FOREIGN KEY (`id_desconto`) REFERENCES `desconto` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela jlee.produtos: ~29 rows (aproximadamente)
+INSERT INTO `produtos` (`id`, `valor`, `produto`, `estoque`, `descricao`, `id_desconto`, `id_avaliacao`, `categoria`, `quantidade`, `imagem`) VALUES
+	(1, 13.99, 'Brownie - Fatia', 99, 'Brownie é uma sobremesa de chocolate típica da culinária dos Estados Unidos e pode considerar-se um bolo feito num tabuleiro para bolos e partido em pequenos quadrados. ', NULL, NULL, 'bolo', NULL, 'bolo.jpeg'),
+	(2, 15.99, 'Bolo de chocolate', 55, 'Bolo de chocolate é um bolo simples ou confeito, que leva chocolate derretido ou em pó, ou ainda cacau em pó em sua confecção.', NULL, NULL, 'bolo', NULL, 'bolochoco.jpeg'),
+	(3, 15.99, 'Bolo de morango', 55, 'Bolo de morango com cobertura e recheio de ninho ', NULL, NULL, 'bolo', NULL, 'bolomorango.jpeg'),
+	(4, 13.99, 'Bolo de Café', 55, 'Bolo de café com um pouco de açúcar por cima.', NULL, NULL, 'bolo', NULL, 'boloo.jpeg'),
+	(5, 79.99, 'Bolo de Festa', 2, 'Bolo de festa com cobertura e recheado, tudo como o cliente quiser', NULL, NULL, 'bolo', NULL, 'bolooooo.jpeg'),
+	(6, 19.99, 'Bolo Red Velvet', 25, 'Bolo red velvet com cobertura e recheio', NULL, NULL, 'bolo', NULL, 'bolovermelho.jpeg'),
+	(7, 24.99, 'Cappuccino - Xícara', 20, 'Cappuccino, do italiano ou capuchino em português, é uma bebida italiana preparada com café expresso e leite.', NULL, NULL, 'cafe', NULL, 'capuchino2.jpeg'),
+	(8, 19.99, 'Café Expresso - Xícara', 25, 'Café expresso, saboroso e rápido para os amantes de café', NULL, NULL, 'cafe', NULL, 'expresso1.jpeg'),
+	(9, 24.99, 'Café Gelado - 500ml', 20, 'O café gelado é uma bebida preparada à  base de café, misturado com alimento congelado.', NULL, NULL, 'cafe', NULL, 'geladoo.jpeg'),
+	(10, 19.99, 'Copo de Café - 450ml', 20, 'Aquele café quentinho e clássico, só que agora em um tamanho melhor para poder aproveitar mais', NULL, NULL, 'cafe', NULL, 'copoo.jpg'),
+	(11, 21.99, 'Café Latte Gelado - 120ml', 20, 'O Latte, que significa \'leite\' em italiano, é uma bebida que leva, basicamente, café expresso e espuma de leite, além de gelo.', NULL, NULL, 'cafe', NULL, 'cafelatte.jpeg'),
+	(12, 15.99, 'Cookie de Chocolate - Unidade', 20, 'Cookie de chocolate tradicional, para os chocólatras.', NULL, NULL, 'doce', NULL, 'cookie.jpeg'),
+	(13, 21.99, 'Donut - Unidade', 20, 'Donut, donut, dónute, rosca ou rosquinha é um pequeno bolo em forma de rosca. Consiste em uma massa açucarada frita, que pode ser coberta com diversos tipos de cobertura.', NULL, NULL, 'doce', NULL, 'donut3.jpeg'),
+	(14, 39.99, 'Caixa de Bombom - 25 unidades', 20, 'Uma caixa de bombons, diferentes e saborosos', NULL, NULL, 'doce', NULL, 'doces.jpeg'),
+	(15, 24.99, 'Donut Recheado - Unidade', 20, 'Nem todo donut tem o formato tradicional de uma rosquinha. Aqui, ele é um pouco mais compacto e vai concentrar um recheio delicioso', NULL, NULL, 'doce', NULL, 'donut4.jpeg'),
+	(16, 24.99, 'Cookie Red Velvet - Unidade', 20, 'O cookie red Velvet, essa versão do biscoito americano, é feito com os mesmos ingredientes básicos do biscoito tradicional, apenas com algumas pequenas alterações.', NULL, NULL, 'doce', NULL, 'cookie3.jpeg'),
+	(17, 29.99, 'Cupcake - Unidade', 20, 'Um cupcake do sabor desejado pelo cliente', NULL, NULL, 'doce', NULL, 'cupcake.jpeg'),
+	(30, 22.99, 'Croque Monsieur', 20, 'Sanduíche francês Croque Monsieur: presunto, queijo, pão tostado e delicioso molho bechamel.', NULL, NULL, 'salgado', NULL, 'lanche.jpeg'),
+	(31, 6.99, 'Pães de Queijo - Unidade', 13, 'Pão de Queijo: bolinho de queijo brasileiro, macio por dentro e crocante por fora. Delícia mineira!', NULL, NULL, 'salgado', NULL, 'paodequeijo.jpeg'),
+	(32, 9.99, 'Croissant salgado - Unidade', 15, 'Croissant salgado: massa folhada, recheio variado, sabor intenso e textura crocante.', NULL, NULL, 'salgado', NULL, 'croquete.jpeg'),
+	(33, 14.99, 'Omelette - Unidade', 12, 'Omelete: ovos batidos, recheio personalizado, cozido até firmar. Clássico versátil', NULL, NULL, 'salgado', NULL, 'salgado.jpeg'),
+	(34, 9.99, 'Pães de Queijo Recheado - Unidade', 13, 'Pão de Queijo Recheado: variante recheada do bolinho de queijo brasileiro, com surpresas deliciosas no interior', NULL, NULL, 'salgado', NULL, 'queijo.jpeg'),
+	(35, 4.99, 'Empadinhas - Unidade', 6, 'Empadinhas: pequenas tortinhas salgadas, massa quebradiça e recheios diversos, perfeitas para petiscar', NULL, NULL, 'salgado', NULL, 'empadinhas.jpeg'),
+	(36, 49.99, 'Chá Panda', 10, 'Infusão suave, ervas selecionadas, sabor adocicado e notas herbais. Aconchego em uma xícara.', NULL, NULL, 'cha', NULL, 'cha-panda.png'),
+	(37, 59.99, 'Chá Hong Pao', 13, 'Chá Hong Pao chinês de sabor complexo, toques de nozes, terra e um caráter torrado distinto.', NULL, NULL, 'cha', NULL, 'cha.jpeg'),
+	(38, 19.99, 'Chá de Canela', 15, 'Infusão aromática e reconfortante, combinação equilibrada de canela em pau, água e, opcionalmente, outros ingredientes.', NULL, NULL, 'cha', NULL, 'chadecanela.jpeg'),
+	(39, 19.99, 'Chá de Erva Doce', 15, 'Infusão suave, levemente adocicada, proveniente da planta Foeniculum vulgare, trazendo conforto e aroma agradável.', NULL, NULL, 'cha', NULL, 'chaervadoce.jpeg'),
+	(40, 29.99, 'Chá de Margarida', 11, 'Infusão delicada obtida das direções da flor, oferecendo um sabor suave e aroma floral agradável.', NULL, NULL, 'cha', NULL, 'chaflor.jpeg'),
+	(41, 19.99, 'Chá de Limão', 25, 'Infusão refrescante e cítrica, preparada com cascas ou rodelas de limão, proporcionando um sabor vibrante e revigorante.', NULL, NULL, 'cha', NULL, 'chalimao.jpeg'),
+	(42, 350.00, 'Café do Edison', 1, 'Café do Prottinho, brasileiro', NULL, NULL, 'cafe', NULL, 'expresso1.jpeg');
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
